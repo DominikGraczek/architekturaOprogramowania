@@ -17,6 +17,9 @@
 
     <!-- Miejsce na produkty -->
     <ul id="product-list" class="list-group mt-3"></ul>
+    <h1 class="text-center mt-3">Lista Zwierząt</h1>
+
+    <ul id="animals-list" class="list-group mt-3"></ul>
 
     <script>
       const firebaseConfig = {
@@ -44,6 +47,20 @@
             li.className = "list-group-item";
             li.textContent = `${product.name} - ${product.type} (${product.quantity})`;
             productList.appendChild(li);
+          });
+        });
+      });
+      document.addEventListener("DOMContentLoaded", function () {
+        const animaList = document.getElementById("animals-list");
+
+        db.collection("animals").onSnapshot((snapshot) => {
+          animaList.innerHTML = "";
+          snapshot.forEach((doc) => {
+            let animal = doc.data();
+            let li = document.createElement("li");
+            li.className = "list-group-item";
+            li.textContent = `${animal.name}`;
+            animaList.appendChild(li);
           });
         });
       });
